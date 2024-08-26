@@ -1,0 +1,24 @@
+import cv2
+
+# Read the image
+img = cv2.imread('your_image.jpg', cv2.IMREAD_GRAYSCALE)
+
+# Apply thresholding or edge detection
+_, thresholded_img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+
+# Find contours
+contours, hierarchy = cv2.findContours(thresholded_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# Choose one of the contours (e.g., the first contour)
+chosen_contour = contours[0]
+
+# Create a blank image to draw the contour
+contour_image = np.zeros_like(img)
+
+# Draw the chosen contour on the blank image
+cv2.drawContours(contour_image, [chosen_contour], -1, (255, 255, 255), thickness=cv2.FILLED)
+
+# Display the result
+cv2.imshow('Chosen Contour', contour_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
